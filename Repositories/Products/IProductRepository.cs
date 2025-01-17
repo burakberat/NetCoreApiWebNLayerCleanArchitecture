@@ -1,7 +1,6 @@
-﻿namespace App.Repositories.Products
+﻿namespace App.Repositories.Products;
+
+public interface IProductRepository : IGenericRepository<Product>
 {
-    public interface IProductRepository : IGenericRepository<Product>
-    {
-        Task<List<Product>> GetTopPriceProduct(int count);
-    }
+    Task<List<Product>> GetTopPriceProductAsync(int count);
 }
