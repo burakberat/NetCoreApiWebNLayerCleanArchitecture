@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using App.Application;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace App.Services
+namespace AppApi.Filters
 {
     public class FluentValidationFilter : IAsyncActionFilter
     {
