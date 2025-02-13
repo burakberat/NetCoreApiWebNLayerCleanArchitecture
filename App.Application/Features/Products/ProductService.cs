@@ -24,6 +24,7 @@ namespace App.Application.Features.Products
 
         public async Task<ServiceResult<List<ProductDto>>> GetAllListAsync()
         {
+            //Cache
             var productListAsCached = await cacheService.GetAsync<List<ProductDto>>(ProductListCacheKey);
             if (productListAsCached is not null) return ServiceResult<List<ProductDto>>.Success(productListAsCached);
 
@@ -59,6 +60,7 @@ namespace App.Application.Features.Products
             await productRepository.AddAsync(createdProduct);
             await unitOfWork.SaveChangesAsync();
 
+            //RabbitMQ
             await serviceBus.PublishAsync(new ProductAddedEvent(createdProduct.Id, createdProduct.Name, createdProduct.Price));
 
             return ServiceResult<CreateProductResponse>.SuccessAsCreated(new CreateProductResponse(createdProduct.Id), $"api/products/{createdProduct.Id}");
